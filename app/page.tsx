@@ -5,65 +5,82 @@ export const revalidate = 3600;
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="min-h-screen bg-gradient-to-b from-white via-green-50/40 to-white text-gray-900">
+
       {/* HERO */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid gap-10 md:grid-cols-2 items-center">
+        <div className="grid items-center gap-12 md:grid-cols-2">
+
+          {/* TEXT */}
           <div>
-            <h1 className="text-6xl font-bold leading-tight">
-              A book can change your life.
+            <span className="inline-block rounded-full bg-green-100 px-4 py-1 text-sm font-medium text-green-700">
+              New Collection 2026
+            </span>
+
+            <h1 className="mt-6 text-5xl font-bold leading-tight">
+              A book can change <br /> your life.
             </h1>
 
-            <p className="mt-6 text-gray-500">
-              Discover bestselling books from around the world.
+            <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+              Discover bestselling books from around the world, curated to
+              inspire, educate, and transform your thinking.
             </p>
 
-            <button className="mt-8 rounded-lg bg-green-600 px-6 py-3 text-white">
-              Browse Books
-            </button>
+            <div className="mt-8 flex gap-4">
+              <button className="rounded-xl bg-green-600 px-6 py-3 text-white font-medium shadow-md hover:bg-green-700 transition">
+                Browse Books
+              </button>
+
+              <button className="rounded-xl border border-gray-300 px-6 py-3 font-medium hover:bg-gray-100 transition">
+                Learn More
+              </button>
+            </div>
           </div>
 
+          {/* IMAGE */}
           <div className="flex justify-center">
-            <Image
-              src="/books/atomic-habits.jpg"
-              alt="Atomic Habits"
-              width={350}
-              height={500}
-              className="rounded-xl shadow-xl"
-            />
+            <div className="rounded-2xl bg-white p-4 shadow-xl ring-1 ring-gray-100">
+              <Image
+                src="/books/atomic-habits.jpg"
+                alt="Atomic Habits"
+                width={360}
+                height={520}
+                className="rounded-xl object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* FEATURED BOOKS */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <h2 className="mb-10 text-center text-4xl font-bold">
+        <h2 className="mb-12 text-center text-4xl font-bold">
           Best Selling Books
         </h2>
 
-        <div className="grid gap-6 md:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
           {books.map((book) => (
             <div
               key={book.id}
-              className="rounded-xl border p-4"
+              className="group rounded-2xl border border-gray-100 bg-white p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition"
             >
-              <Image
-                src={book.coverImage}
-                alt={book.title}
-                width={200}
-                height={300}
-                className="mx-auto h-[250px] object-cover"
-              />
+              <div className="overflow-hidden rounded-xl bg-gray-50">
+                <Image
+                  src={book.coverImage}
+                  alt={book.title}
+                  width={200}
+                  height={300}
+                  className="h-[260px] w-full object-cover group-hover:scale-105 transition"
+                />
+              </div>
 
-              <h3 className="mt-4 font-semibold">
+              <h3 className="mt-4 font-semibold text-gray-900 line-clamp-1">
                 {book.title}
               </h3>
 
-              <p className="text-sm text-gray-500">
-                {book.author}
-              </p>
+              <p className="text-sm text-gray-500">{book.author}</p>
 
-              <p className="mt-2 text-green-600 font-bold">
+              <p className="mt-2 font-bold text-green-600">
                 ${book.price}
               </p>
             </div>
@@ -73,7 +90,7 @@ export default function HomePage() {
 
       {/* TESTIMONIALS */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <h2 className="mb-10 text-4xl font-bold">
+        <h2 className="mb-12 text-4xl font-bold text-center">
           Customer Feedback
         </h2>
 
@@ -81,13 +98,14 @@ export default function HomePage() {
           {[1, 2, 3].map((item) => (
             <div
               key={item}
-              className="rounded-xl border p-6"
+              className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100 hover:shadow-md transition"
             >
-              <p>
-                Lumen Books helped me discover amazing books.
+              <p className="text-gray-600 leading-relaxed">
+                “Lumen Books helped me discover amazing books that actually
+                changed how I think about productivity and habits.”
               </p>
 
-              <p className="mt-4 font-semibold">
+              <p className="mt-4 font-semibold text-gray-900">
                 Customer {item}
               </p>
             </div>
@@ -97,16 +115,21 @@ export default function HomePage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="rounded-3xl bg-gradient-to-r from-green-500 to-teal-500 p-12 text-white">
+        <div className="rounded-3xl bg-gradient-to-r from-green-600 to-emerald-500 p-12 text-white shadow-xl">
           <h2 className="text-4xl font-bold">
             Make Your Life Better With Books
           </h2>
 
-          <button className="mt-6 rounded-lg bg-white px-6 py-3 text-black">
-            Shop Now.
+          <p className="mt-4 text-white/90 max-w-xl">
+            Join thousands of readers discovering life-changing books every day.
+          </p>
+
+          <button className="mt-6 rounded-xl bg-white px-6 py-3 font-semibold text-green-700 hover:bg-gray-100 transition">
+            Shop Now
           </button>
         </div>
       </section>
+
     </main>
   );
 }

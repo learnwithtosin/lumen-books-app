@@ -103,7 +103,7 @@ export default function HomePage() {
           </h2>
 
           <button className="mt-6 rounded-lg bg-white px-6 py-3 text-black">
-            Shop Now
+            Shop Now.
           </button>
         </div>
       </section>

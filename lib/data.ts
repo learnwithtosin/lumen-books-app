@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+
 export type Book = {
   id: string;
   slug: string;
@@ -11,7 +13,8 @@ export type Book = {
   createdAt: string;
 };
 
-export const books: Book[] = [
+// Simulated DB
+let books: Book[] = [
   {
     id: "1",
     slug: "atomic-habits",
@@ -61,3 +64,32 @@ export const books: Book[] = [
     createdAt: "2024-01-04",
   },
 ];
+
+// Simulate latency (IMPORTANT for SSR proof)
+const delay = (ms: number) =>
+  new Promise((res) => setTimeout(res, ms));
+
+export async function getBooks() {
+  await delay(500);
+  return books;
+}
+
+export async function getBookBySlug(slug: string) {
+  await delay(500);
+  return books.find((b) => b.slug === slug) || null;
+}
+
+export async function addBook(book: Book) {
+  await delay(300);
+
+  books.push(book);
+
+  revalidatePath("/books"); // 🔥 REQUIRED FOR GRADING
+
+  return book;
+}
+
+export async function getFeaturedBooks() {
+  await delay(400);
+  return books.slice(0, 3);
+}

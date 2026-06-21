@@ -20,8 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" style={{ colorScheme: "light" }}>
+      <body
+        className={`${inter.className} bg-white text-gray-900 min-h-screen`}
+      >
         <Navbar />
         {children}
         <Footer />

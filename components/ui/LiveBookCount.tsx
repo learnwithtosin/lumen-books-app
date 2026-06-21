@@ -3,23 +3,34 @@
 import { useEffect, useState } from "react";
 
 export default function LiveBookCount() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    async function loadBooks() {
-      const response = await fetch("/api/books");
-
-      const result = await response.json();
-
-      setCount(result.data.length);
+    async function loadCount() {
+      try {
+        const res = await fetch("/api/books");
+        const result = await res.json();
+        setCount(result.data.length);
+      } catch {
+        setCount(null);
+      }
     }
 
-    loadBooks();
+    loadCount();
   }, []);
+
+  if (count === null) {
+    return (
+      <p className="text-sm text-gray-400 mb-4 animate-pulse">
+        Loading catalog…
+      </p>
+    );
+  }
 
   return (
     <p className="text-sm text-gray-500 mb-4">
-      Live Catalog Count: {count} books
+      <span className="font-semibold text-green-600">{count}</span>{" "}
+      {count === 1 ? "book" : "books"} in the catalog
     </p>
   );
 }

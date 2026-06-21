@@ -1,48 +1,59 @@
+import Link from "next/link";
 import { Globe, Share2, Link2, AtSign } from "lucide-react";
 
+const FOOTER_COLS = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "Browse Books", href: "/books" },
+      { label: "Dashboard", href: "/dashboard" },
+    ],
+  },
+  {
+    title: "Account",
+    links: [
+      { label: "Login", href: "/login" },
+      { label: "Add a Book", href: "/dashboard/new" },
+    ],
+  },
+  {
+    title: "Help",
+    links: [
+      { label: "FAQ", href: "#" },
+      { label: "Returns", href: "#" },
+      { label: "Contact", href: "#" },
+    ],
+  },
+];
+
+const SOCIAL_ICONS = [Globe, Share2, Link2, AtSign];
+
 export default function Footer() {
-  const socialIcons = [Globe, Share2, Link2, AtSign];
-
-  const footerCols = [
-    {
-      title: "About Us",
-      links: ["Home", "Contact", "Authors"],
-    },
-    {
-      title: "Services",
-      links: ["Populars", "Offers", "Book"],
-    },
-    {
-      title: "Help",
-      links: ["Returns", "FAQ", "Guide"],
-    },
-  ];
-
   return (
     <footer className="border-t border-gray-100 mt-10">
       <div className="mx-auto max-w-7xl px-6 py-12 grid gap-8 md:grid-cols-4">
+        {/* Brand */}
         <div>
-          <p className="font-bold text-green-600 text-lg mb-2">
-            Book.
+          <Link
+            href="/"
+            className="font-bold text-green-600 text-lg mb-2 block hover:opacity-80 transition"
+          >
+            Lumen Books.
+          </Link>
+
+          <p className="text-xs text-gray-500 mt-1">
+            Your next favourite read is one click away.
           </p>
 
-          <p className="text-xs text-gray-500">
-            2972 Westheimer Rd.
-          </p>
-
-          <p className="text-xs text-gray-500">
-            Santa Ana, IL 85486
-          </p>
-
-          <p className="text-xs text-gray-500 mt-3">
-            Follow us -
-          </p>
+          <p className="text-xs text-gray-500 mt-3">Follow us</p>
 
           <div className="flex gap-2 mt-2">
-            {socialIcons.map((Icon, i) => (
+            {SOCIAL_ICONS.map((Icon, i) => (
               <a
                 key={i}
                 href="#"
+                aria-label="Social link"
                 className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:text-green-600 hover:border-green-500 transition"
               >
                 <Icon size={13} />
@@ -51,21 +62,21 @@ export default function Footer() {
           </div>
         </div>
 
-        {footerCols.map((col) => (
+        {/* Link columns */}
+        {FOOTER_COLS.map((col) => (
           <div key={col.title}>
             <p className="font-semibold text-gray-900 mb-3 text-sm">
               {col.title}
             </p>
-
             <ul className="space-y-2">
-              {col.links.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
+              {col.links.map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
                     className="text-xs text-gray-500 hover:text-green-600 transition"
                   >
-                    {link}
-                  </a>
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -75,12 +86,9 @@ export default function Footer() {
 
       <div className="border-t border-gray-100 py-4 px-6 flex items-center justify-between">
         <p className="text-xs text-gray-400">
-          © 2024 Book. All rights reserved.
+          © {new Date().getFullYear()} Lumen Books. All rights reserved.
         </p>
-
-        <p className="text-xs text-gray-400">
-          www.book.com
-        </p>
+        <p className="text-xs text-gray-400">lumenbooks.vercel.app</p>
       </div>
     </footer>
   );

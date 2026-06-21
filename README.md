@@ -34,3 +34,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+PS:
+Trade-off: The data layer uses an in-memory array (lib/data.ts) which works correctly in local development where a single Node.js process persists across requests. On Vercel's serverless infrastructure, each function invocation may run in an isolated instance, so mutations (e.g. adding a book via /dashboard/new) do not persist across requests. To fix this in production, the in-memory store would be replaced with a persistent database (Postgres, SQLite, etc.). This was an intentional trade-off per the assessment brief, which listed a real database as bonus credit only.

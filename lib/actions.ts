@@ -71,3 +71,11 @@ export async function addBookAction(
 
   redirect("/books");
 }
+
+// ─── LOGOUT ACTION ───────────────────────────────────────────────────────────
+
+export async function logoutAction() {
+  const cookieStore = await cookies();
+  cookieStore.delete("auth");
+  redirect("/login");
+}

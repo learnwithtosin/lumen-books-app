@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Brain } from "lucide-react";
+import { logoutAction } from "@/lib/actions";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -10,7 +11,11 @@ const NAV_LINKS = [
   { label: "Dashboard", href: "/dashboard" },
 ];
 
-export default function Navbar() {
+type NavbarProps = {
+  isLoggedIn: boolean;
+};
+
+export default function Navbar({ isLoggedIn }: NavbarProps) {
   const pathname = usePathname();
 
   return (
@@ -27,9 +32,7 @@ export default function Navbar() {
       <div className="hidden md:flex items-center gap-8 text-sm font-medium">
         {NAV_LINKS.map(({ label, href }) => {
           const isActive =
-            href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(href);
+            href === "/" ? pathname === "/" : pathname.startsWith(href);
 
           return (
             <Link
@@ -52,12 +55,23 @@ export default function Navbar() {
 
       {/* Auth buttons */}
       <div className="flex items-center gap-3">
-        <Link
-          href="/login"
-          className="text-sm font-medium text-gray-600 hover:text-gray-900 transition"
-        >
-          Login
-        </Link>
+        {isLoggedIn ? (
+          <form action={logoutAction}>
+            <button
+              type="submit"
+              className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
+            >
+              Logout
+            </button>
+          </form>
+        ) : (
+          <Link
+            href="/login"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+          >
+            Login
+          </Link>
+        )}
 
         <Link
           href="/books"

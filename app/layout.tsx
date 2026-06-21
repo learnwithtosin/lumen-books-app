@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
-import Navbar from "@/components/layout/Navbar";
+import NavbarWrapper from "@/components/layout/NavbarWrapper";
 import Footer from "@/components/layout/Footer";
 
 const inter = Inter({
@@ -21,10 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" style={{ colorScheme: "light" }}>
-      <body
-        className={`${inter.className} bg-white text-gray-900 min-h-screen`}
-      >
-        <Navbar />
+      <body className={`${inter.className} bg-white text-gray-900 min-h-screen`}>
+        <NavbarWrapper />
         {children}
         <Footer />
       </body>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { addBookAction } from "@/lib/actions";
 
 function SubmitButton() {
@@ -17,7 +18,7 @@ function SubmitButton() {
 }
 
 export default function AddBookForm() {
-  const [state, formAction] = useFormState(addBookAction, null);
+  const [state, formAction] = useActionState(addBookAction, null);
 
   return (
     <form action={formAction} className="space-y-5">
@@ -77,9 +78,7 @@ export default function AddBookForm() {
             defaultValue=""
             className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
           >
-            <option value="" disabled>
-              Select a category
-            </option>
+            <option value="" disabled>Select a category</option>
             <option value="self-help">Self Help</option>
             <option value="business">Business</option>
             <option value="biography">Biography</option>
@@ -98,9 +97,7 @@ export default function AddBookForm() {
           placeholder="https://... or /books/my-cover.jpg"
           className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
         />
-        <p className="text-xs text-gray-400 mt-1">
-          Leave blank to use the default cover.
-        </p>
+        <p className="text-xs text-gray-400 mt-1">Leave blank to use the default cover.</p>
       </div>
 
       <div>
